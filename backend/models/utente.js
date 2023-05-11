@@ -34,15 +34,19 @@ const schemaUtente= new mongoose.Schema({
     scadenzaRecuperoPassword: String
 })
 schemaUtente.pre('save', async function (next){
+    
     if(this.isModified('password'))
         next()
     
     this.password=await bcrypt.hash(this.password,10)
+    console.log(this.password)
         next()
 })
 
 schemaUtente.methods.checkPassword= async function( password){
-    return await bcrypt.compare(password, this.password)
+    let val=await bcrypt.compare(password, this.password)
+    console.log(val);
+    return; 
 }
 
 module.exports=mongoose.model('utente',schemaUtente);

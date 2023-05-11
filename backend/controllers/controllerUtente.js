@@ -4,6 +4,7 @@ const config = require('../config');
 const Utente=require('../models/utente');
 
 exports.loginUtente = async (req, res) => {
+    console.log("received")
     const { email, password } = req.body
 
     // controllo su campi mancanti
@@ -13,6 +14,7 @@ exports.loginUtente = async (req, res) => {
     try {
         // recupero utente dal database
         const utente = await Utente.findOne({ email: email })
+        
 
         // se non esiste, ritorno un errore
         if (!utente)
@@ -42,4 +44,9 @@ exports.loginUtente = async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, error: err.message })
     }
+}
+
+exports.getping= async (req, res)=>{
+    console.log(req);
+    res.send({message:"pinged right"})
 }
