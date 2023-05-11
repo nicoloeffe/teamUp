@@ -15,11 +15,11 @@ const schemaCampo= new mongoose.Schema({
     },
     prenotazioni:{
         type: [mongoose.Types.ObjectId],
-        ref: ''
+        ref: 'prenotazioni'
     },
     gestore:{
         type: mongoose.Types.ObjectId,
-        ref: ''
+        ref: 'utente'
     },
     report :{
         type: [mongoose.Types.ObjectId],
