@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');        //require da utilizzare
 const Utente=require('../models/utente');
+const invioEmail= require('./email');
 
 //funzione per la registrazione degli utenti
 exports.registrazioneUtente= async (req,res)=>{
@@ -78,15 +79,55 @@ exports.loginUtente = async (req, res) => {
 }
 
 
-/*exports.recuperaPassword= async (req,res)=>{ //funzione da fare
+exports.recuperaPassword= async (req,res)=>{ //funzione da fare
     console.log("Received request for password recovery")
     const {email}=req.body
 
-    const findEmail=Utente.findOne(email);
-    if(!findEmail){
-        res.status(400).json({succes:false, message:"Cannot find an associated account with the email provided"})
+    //controllo che il campo inserito sia valido
+    if(!email)
+        return res.status(400).json({succes:false, message:"email not provided"})
+   
+    try{
+        //controllo se esiste l'utente
+        const user= await Utente.findOne({email:email})
+        if(!user){
+            return res.status(400).json({success:false, message:"Could not find the email"})
+        }
+        //creo un token random e lo salvo 
+
+        const resetToken= crypto.randomBytes(20).toString('hex')
+
+        user.tokenRecuperoPassword=crypto.createHash('sha256').update(resetToken).digest('hex')
+
+        //impostazione del tempo massimo per eseguire la procedura di reset
+        user.scadenzaRecuperoPassword=Date.now() + 10*60*1000 //10 minuti (?)
+
+        await user.save();
+        const resetURL = `http://${config.HOST}:${config.FRONT_PORT}/resetpassword/${resetToken}`
+
+        const message = `
+            <h1>You have requested a password reset</h1>
+            <p>Please go to this link to reset your password</p>
+            <a href=${resetURL} clicktracking=off>${resetURL}`
+
+            try{
+                await invioEmail({
+                    to:user.email,
+                    subject:'Richiesta reset password',
+                    text: message
+                })
+                res.status(200).json({success:true, messaggio:'email correctly sent'})
+            }catch(err){
+                //reset dei campi nel database, operazione non andata a buon fine
+                user.tokenRecuperoPassword=undefined;
+                user.scadenzaRecuperoPassword=undefined;
+                await user.save();
+                res.status(500).json({success:false, message: err})
+            }
+    }catch(err){
+        res.status(500).json({success:false,message:err})
     }
-}*/
+}
 
 //funzione per il cambio password
 exports.cambioPassword= async (req,res)=>{
