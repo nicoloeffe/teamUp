@@ -19,7 +19,7 @@ const schemaUtente= new mongoose.Schema({
     },
     ruolo:{
         type: String,
-        enum: ['utente','admin'],
+        enum: ['Utente','Admin'],
         required: true
     },
     prenotazioni:{
@@ -35,7 +35,7 @@ const schemaUtente= new mongoose.Schema({
 })
 schemaUtente.pre('save', async function (next){
     
-    if(this.isModified('password'))
+    if(!this.isModified('password'))
         next()
     
     this.password=await bcrypt.hash(this.password,10)
@@ -46,7 +46,7 @@ schemaUtente.pre('save', async function (next){
 schemaUtente.methods.checkPassword= async function( password){
     let val=await bcrypt.compare(password, this.password)
     console.log(val);
-    return; 
+    return val; 
 }
 
 module.exports=mongoose.model('utente',schemaUtente);
