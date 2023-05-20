@@ -16,16 +16,16 @@
               <label class="block text-gray-700 font-bold mb-2 text-white" for="email">
                 Email
               </label>
-              <input v-model="email" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="email" type="email" placeholder="Inserisci la tua email" />
+              <input v-model="this.user.email" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="email" type="email" placeholder="Inserisci la tua email" />
             </div>
             <div class="mt-4">
               <label class="block text-gray-700 font-bold mb-2 text-white" for="password">
                 Password
               </label>
-              <input v-model="password" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="password" type="password" placeholder="Inserisci la tua password" />
+              <input v-model="this.user.password" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="password" type="password" placeholder="Inserisci la tua password" />
             </div>
             <div class="mt-6">
-              <button class="w-full px-4 py-2 text-lg font-bold text-green-500 bg-white rounded-lg shadow-md hover:bg-green-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500" type="submit">
+              <button class="w-full px-4 py-2 text-lg font-bold text-green-500 bg-white rounded-lg shadow-md hover:bg-green-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"  on-click="login()">
                 Accedi
               </button>
             </div>
@@ -44,6 +44,48 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-    name:"LoginForm"
+    name:"LoginForm",
+    data (){
+      return{
+        user:{
+          email:"",
+          password:""
+        },
+        error: {
+          status: false,
+          message: "default message"
+        }
+      }
+
+    },
+    methods:{
+      async login(){
+        console.log("request received")
+        const opzioniRichiesta={
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(this.user)
+        }
+        console.log(opzioniRichiesta.body);
+        try{
+          const res= await fetch('http://localhost:8080/login', opzioniRichiesta);
+          const data= await res.json();
+
+          if(data.success){
+            console.log('user logged in')
+          }
+
+          else{
+            console.log("something went wrong")
+            this.error.status=true;
+            this.error.message= data?.error || data?.message || "Unexpected error"
+            console.log(this.error.message)
+          }
+        }catch(error){
+          this.error.status=true;
+          this.error.message= error|| "Errore inaspettato"
+        }
+      }
+    }
 })
 </script>

@@ -7,10 +7,11 @@ const invioEmail = require('./email');
 exports.registrazioneUtente= async (req,res)=>{
 
     //recupero i campi dal body della richiesta
-    const {nome, email, password}= req.body;
+    const {nomeUtente, email, password}= req.body;
+    console.log(nomeUtente +" "+ email)
 
     //controllo che tutti i campi siano compilati
-    if(!email || !nome || !password){
+    if(!email || !nomeUtente || !password){
         return res.status(400).json({succes: false, message: "Compilare tutti i campi!"})//se tutti i campi non sono compilati ritorno 400
     }
     //controllo che l'utente non sia gia registrato
@@ -23,7 +24,7 @@ exports.registrazioneUtente= async (req,res)=>{
         //altrimenti procedo con la registrazione
 
         const newUtente= new Utente({
-            nome: nome,
+            nome: nomeUtente,
             email: email,
             password: password,
             ruolo: 'Utente'
@@ -36,11 +37,12 @@ exports.registrazioneUtente= async (req,res)=>{
 }
 
 exports.loginUtente = async (req, res) => {
-    console.log("received")
-    const { email, password } = req.body
+    console.log("Request for login received")
+    const { email,password } = req.body
+    console.log(email+" "+ password)
 
     // controllo su campi mancanti
-    if (!email || !password)
+    if (! email || !password)
         return res.status(400).json({ success: false, message: "Compilare tutti i campi" })
 
     try {
