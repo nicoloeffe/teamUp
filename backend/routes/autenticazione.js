@@ -1,10 +1,11 @@
-const express= require ('express');
-const router= express.Router();
+const express = require('express');
+const authRouter = express.Router();
 
-const controllerUtenti= require('../controllers/controllerUtente');
+const controllerUtenti = require('../controllers/controllerUtente');
 
-router.post('/login',controllerUtenti.loginUtente);
-router.post('/signin', controllerUtenti.registrazioneUtente);
-router.post('/changepass',controllerUtenti.cambioPassword);
+// + /login := server_domain:port/auth/login
+authRouter.post('/login', controllerUtenti.loginUtente);
+authRouter.post('/signin', controllerUtenti.registrazioneUtente);
+authRouter.post('/changepass', controllerUtenti.cambioPassword);
 
-module.exports=router;
+module.exports = authRouter;

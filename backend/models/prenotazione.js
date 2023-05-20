@@ -2,19 +2,18 @@ const mongoose= require ('mongoose');
 const bcrypt= require ('bcryptjs');
 
 const prenotazioneSchema= new mongoose.Schema({
-    campo:{
-        type: mongoose.Types.ObjectId,
-        ref : 'campo'
+    nome:{
+        type: String,
+        ref : 'nome'
     },
-    dataInizio:{
+    data:{
         type: Date,
         required: true
     },
-    durata: int, 
-    utente:{
-        type: mongoose.Types.ObjectId,
-        ref: 'utente'
-    },
+    orario:{
+        type: String,
+        ref: 'orario'
+    }, 
     report:{
         type: mongoose.Types.ObjectId,
         ref: ''

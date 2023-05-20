@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const config = require('../config');        //require da utilizzare
-const Utente=require('../models/utente');
-const invioEmail= require('./email');
+const config = require('../config');
+const Utente = require('../models/utente');
+const invioEmail = require('./email');
 
 //funzione per la registrazione degli utenti
 exports.registrazioneUtente= async (req,res)=>{

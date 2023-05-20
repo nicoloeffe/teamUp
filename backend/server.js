@@ -1,47 +1,47 @@
-const express= require ('express');
-const cors= require ('cors');
-const config=require ('./config');
+const express = require('express');
+const cors = require('cors');
+const config = require('./config');
 
+// connect to DB 
+const db= require('./models');
+
+// import all ROUTES
+const authRoute = require ('./routes/autenticazione');
+const prenotazioniRouter = require('./routes/prenotazioni');
 
 const app=express();
 
 var corsOptions={
-    origin:"http://localhost8081"
+    origin:"http://127.0.0.1:8081"
 }
 
 app.use(cors(corsOptions));
-
-const authRoute= require ('./routes/autenticazione')
-
 app.use(express.json());
-
 app.use(express.urlencoded({extended:true}));
-app.use(authRoute);
-app.use('/*', (req,res)=>res.status(404).json({succes:false, message:"Route inesistente"}))
 
-const db= require('./models');
+// Use Controllers
+app.use("/auth", authRoute);
+app.use("/prenotazioni", prenotazioniRouter);
 
-const utente= db.user;
 
-db.mongoose.connect("mongodb://127.0.0.1",{
+// Gestisci le pagine che non esistono
+app.use('/*', (req,res)=> {
+    res.status(404).json({succes:false, message:"Route inesistente"}) 
+})
+
+// controllare questo URI, nel senso che mondodb docs dice di fare un URI cosi
+// mongodb://username:password@127.0.0.1:27017/<nome_db>?options
+db.mongoose.connect("mongodb://127.0.0.1:27017",{
     useUnifiedTopology: true
 }).then(()=>{
-    console.log("successfully connected to mongoDb")
-    /*new utente({
-        nome:"Carlo",
-        email:"carlorigoni@gmail.com",
-        password:"carletto",
-        ruolo:"utente"
-    }).save()*/
+    console.log("Successfully connected to mongoDb")
 }).catch(err=>{
     console.log(err);
     process.exit();
 })
 
-const PORT=process.env.PORT ||8080 ;
-/*app.get("/",(req,res)=>{
-    res.json({message: "welcome to the application. "});
-})*/
+const PORT = config.PORT;
+
 app.listen(PORT,()=>{
-    console.log(`server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 })
