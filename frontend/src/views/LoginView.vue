@@ -1,16 +1,20 @@
 <template>
-    <LoginForm/>
-</template>
-
-<script>
-import LoginForm from "../components/LoginForm.vue"
-import {defineComponent} from 'vue';
-export default defineComponent({
-    name:"LoginView",
+    <div >
+        <NavBar/>
+        <LoginForm/>
+    </div>
+  </template>
+  
+  <script>
+  // @ is an alias to /src
+  import NavBar from '@/components/NavBar.vue'
+  import LoginForm from '@/components/LoginForm.vue'
+  
+  export default {
+    name: 'LoginView',
     components: {
-        LoginForm
-
+      NavBar, 
+      LoginForm
     }
-})
-
-</script>
+  }
+  </script>

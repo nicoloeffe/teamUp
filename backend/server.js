@@ -6,7 +6,7 @@ const config=require ('./config');
 const app=express();
 
 var corsOptions={
-    origin:"http://localhost8081"
+    origin:"http://localhost:8081"
 }
 
 app.use(cors(corsOptions));
@@ -27,12 +27,7 @@ db.mongoose.connect("mongodb://user:pass@localhost:27017",{
     useUnifiedTopology: true
 }).then(()=>{
     console.log("successfully connected to mongoDb")
-    /*new utente({
-        nome:"Carlo",
-        email:"carlorigoni@gmail.com",
-        password:"carletto",
-        ruolo:"utente"
-    }).save()*/
+
 }).catch(err=>{
     console.log(err);
     process.exit();

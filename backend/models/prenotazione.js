@@ -7,17 +7,17 @@ const prenotazioneSchema= new mongoose.Schema({
         ref : 'campo'
     },
     dataInizio:{
-        type: Date,
+        type: String,
         required: true
     },
-    durata: int, 
+    durata: String, 
     utente:{
         type: mongoose.Types.ObjectId,
         ref: 'utente'
     },
     report:{
         type: mongoose.Types.ObjectId,
-        ref: ''
+        ref: 'report'
     }
 })
 

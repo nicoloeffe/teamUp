@@ -1,20 +1,20 @@
 <template>
   <div >
-    <LogoBar/>
-    <StartPage/>
+    <NavBar/>
+    <HomePage/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import LogoBar from '@/components/LogoBar.vue'
-import StartPage from '@/components/HomePage.vue'
+import NavBar from '@/components/NavBar.vue'
+import HomePage from '@/components/HomePage.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    LogoBar, 
-    StartPage
+    NavBar, 
+    HomePage,
   }
 }
 </script>
