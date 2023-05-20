@@ -2,10 +2,10 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SignUpView from '../views/SignUpView.vue'
 import LoginView from '../views/LoginView.vue'
-import BookingView from '../views/BookingView.vue'
 import AdminAccountView from '../views/AdminAccountView.vue'
 import ProfileView from '../views/ProfileView.vue'
-import PrenotazioneView from '../views/PrenotazioneView.vue';
+import PrenotazioneView from '../views/PrenotazioneView.vue'
+import NotFoundView from '../views/NotFoundView'
 
 const routes = [
   {
@@ -15,11 +15,11 @@ const routes = [
   },
   {
     path: '/prenotazione',
+    name: 'Prenotazione',
     component: PrenotazioneView,     
-    meta: { default: true },
   },
   {
-    path: '/SignUpView',
+    path: '/signup',
     name: 'SignUp',
     component: SignUpView
   },
@@ -27,11 +27,6 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: LoginView
-  },
-  {
-    path: '/BookingView',
-    name: 'Booking',
-    component: BookingView
   },
   {
     path: '/AdminAccountView',
@@ -43,6 +38,16 @@ const routes = [
     name: 'Profile',
     component: ProfileView
   },
+
+  // TO BE LAST
+  { 
+    path: "/:catchAll(.*)",
+    name: 'NotFound',
+    component: NotFoundView,
+    meta: {
+      requiresAuth: false
+    }
+  }
 ]
 
 const router = createRouter({

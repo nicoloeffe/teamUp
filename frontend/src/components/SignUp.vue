@@ -12,27 +12,32 @@
       <div class="flex flex-col items-center justify-center min-h-screen">
         <div class="w-full max-w-md p-6 bg-green-500 rounded-lg shadow-md">
           <h2 class="text-2xl font-bold text-center text-white">Registrati</h2>
+          <div v-if="error.status"> 
+            <h1>
+              {{error.message}}
+            </h1>
+          </div>
           <form class="mt-6">
             <div>
-              <label class="block text-gray-700 font-bold mb-2 text-white" for="username">
+              <label class="block font-bold mb-2 text-white" for="username">
                 Nome utente
               </label>
               <input v-model="this.user.nomeUtente" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="username" type="text" placeholder="Inserisci il tuo nome utente" />
             </div>
             <div class="mt-4">
-              <label class="block text-gray-700 font-bold mb-2 text-white" for="email">
+              <label class="block font-bold mb-2 text-white" for="email">
                 Email
               </label>
               <input v-model="this.user.email" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="email" type="email" placeholder="Inserisci la tua email" />
             </div>
             <div class="mt-4">
-              <label class="block text-gray-700 font-bold mb-2 text-white" for="password">
+              <label class="block font-bold mb-2 text-white" for="password">
                 Password
               </label>
               <input  v-model="this.user.password" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="password" type="password" placeholder="Inserisci la tua password" />
             </div>
             <div class="mt-4">
-              <label class="block text-gray-700 font-bold mb-2 text-white" for="password-confirm">
+              <label class="block font-bold mb-2 text-white" for="password-confirm">
                 Conferma password
               </label>
               <input class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="password-confirm" type="password" placeholder="Inserisci di nuovo la tua password" />
@@ -54,6 +59,8 @@
 </template>
 
 <script>
+import { config } from '@/config'
+import router from '@/router'
 import { defineComponent } from 'vue'
   export default defineComponent({
     name: 'SignUp',
@@ -80,11 +87,12 @@ import { defineComponent } from 'vue'
         }
         console.log(opzioniRichiesta)
         try{
-            const res=await fetch('http://localhost:8080/signin',opzioniRichiesta);
-            const data= await res.json();
+            const res = await fetch(`${config.BASE_URL}/auth/signin`,opzioniRichiesta);
+            const data = await res.json();
 
             if(data.success){
               console.log(data.message);
+              router.push({name: "Login"})
             }
             else{
               this.error.status=true;
@@ -94,6 +102,7 @@ import { defineComponent } from 'vue'
           this.error.status=true;
           this.error.message= error;
           console.log(this.error.message)
+
         }
       },
       log(){console.log("pressed")}

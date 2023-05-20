@@ -13,13 +13,13 @@
           <h2 class="text-2xl font-bold text-center text-white">Accedi</h2>
           <form class="mt-6" @submit.prevent="login">
             <div class="mt-4">
-              <label class="block text-gray-700 font-bold mb-2 text-white" for="email">
+              <label class="block font-bold mb-2 text-white" for="email">
                 Email
               </label>
               <input v-model="this.user.email" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="email" type="email" placeholder="Inserisci la tua email" />
             </div>
             <div class="mt-4">
-              <label class="block text-gray-700 font-bold mb-2 text-white" for="password">
+              <label class="block font-bold mb-2 text-white" for="password">
                 Password
               </label>
               <input v-model="this.user.password" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="password" type="password" placeholder="Inserisci la tua password" />
@@ -32,7 +32,7 @@
           </form>
           <hr class="my-6 border-gray-300 w-full" />
           <p class="mt-8 text-center">
-            Non hai ancora un account? <router-link class="text-black" to="/register">Registrati</router-link>
+            Non hai ancora un account? <router-link class="text-black" to="SignUp">Registrati</router-link>
           </p>
         </div>
       </div>
@@ -41,7 +41,10 @@
     
 
 <script>
+import { config } from "@/config";
 import { defineComponent } from "vue";
+import store from '@/store/index'
+import router from '@/router';
 
 export default defineComponent({
     name:"LoginForm",
@@ -68,11 +71,13 @@ export default defineComponent({
         }
         console.log(opzioniRichiesta.body);
         try{
-          const res= await fetch('http://localhost:8080/login', opzioniRichiesta);
+          const res= await fetch(`${config.BASE_URL}/auth/login`, opzioniRichiesta);
           const data= await res.json();
 
           if(data.success){
             console.log('user logged in')
+            store.commit('setToken', {user: {}, token: data.token})
+            router.push({name: "Prenotazione"})
           }
 
           else{
