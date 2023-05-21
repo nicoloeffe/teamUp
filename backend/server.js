@@ -12,7 +12,7 @@ const prenotazioniRouter = require('./routes/prenotazioni');
 const app=express();
 
 var corsOptions={
-    origin:"http://127.0.0.1:8081"
+    origin:"http://localhost:8081"
 }
 
 app.use(cors(corsOptions));
@@ -31,7 +31,7 @@ app.use('/*', (req,res)=> {
 
 // controllare questo URI, nel senso che mondodb docs dice di fare un URI cosi
 // mongodb://username:password@127.0.0.1:27017/<nome_db>?options
-db.mongoose.connect("mongodb://127.0.0.1:27017",{
+db.mongoose.connect("mongodb://127.0.0.1:27017/teamup_prod",{
     useUnifiedTopology: true
 }).then(()=>{
     console.log("Successfully connected to mongoDb")

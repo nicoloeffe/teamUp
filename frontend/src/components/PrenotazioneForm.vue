@@ -1,17 +1,8 @@
-<style scoped>
-.custom {
-  background-image: url("../images/sfondo.jpeg");
-  background-size: cover;
-  background-position: center;
-  resize: both;
-}
-</style>
 <template>
   <div class="custom">
     <div class="flex flex-col items-center justify-center min-h-screen">
       <div class="w-full max-w-md p-6 bg-green-500 rounded-lg shadow-md">
         <h2 class="text-4xl font-bold text-center text-white">Prenotazione</h2>
-
         <form class="mt-6 bg-white rounded-lg p-4 ">
           <div>
             <label class="block text-gray-700 font-bold mb-2" for="nome">
@@ -25,7 +16,7 @@
             <label class="block text-gray-700 font-bold mb-2" for="cognome">
               cognome
             </label>
-            <input
+            <input v-model="this.datiPrenotazione.cognome"
               class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white"
               id="cognome" type="cognome" placeholder="Inserisci il tuo cognome" />
           </div>
@@ -58,6 +49,9 @@
 </template>
   
 <script>
+import { config } from "@/config";
+import router from '@/router';
+
 export default {
   data(){
     return{
@@ -73,7 +67,7 @@ export default {
     async inviaPrenotazione() {
       const datiPrenotazione = {
         // Raccogli i dati necessari per la prenotazione dagli input del form
-        nome: this.datiPrenotazione.nome,
+        nome: this.datiPrenotazione.nome + " " + this.datiPrenotazione.cognome,
         data: this.datiPrenotazione.data,
         orario: this.datiPrenotazione.orario,
       };
@@ -87,7 +81,7 @@ export default {
           body: JSON.stringify(datiPrenotazione),
         }
         console.log(opzioniRichiesta)
-        const response = await fetch('http://127.0.0.1:8080/prenotazioni', opzioniRichiesta);
+        const response = await fetch(`${config.BASE_URL}/prenotazioni`, opzioniRichiesta);
         
 
         if (!response.ok) {
@@ -95,6 +89,7 @@ export default {
         }
 
         // Prenotazione inviata con successo, esegui le azioni necessarie
+        router.push({name: "Conferma"})
       } catch (errore) {
         console.error(errore);
         // Gestisci l'errore, visualizza un messaggio, ecc.
@@ -103,4 +98,12 @@ export default {
   },
 };
 </script>
+<style scoped>
+  .custom{
+    background-image: url("../images/sfondo.jpeg");
+    background-size: cover;
+    background-position:center;
+    resize: both;
+  }
+</style>
   

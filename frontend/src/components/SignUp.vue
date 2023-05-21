@@ -1,57 +1,51 @@
-<style scoped>
-  .custom{
-    background-image: url("../images/sfondo.jpeg");
-    background-size: cover;
-    background-position:center;
-    resize: both;
-  }
-</style>
 <template>
   <body>
     <div class="custom">
       <div class="flex flex-col items-center justify-center min-h-screen">
         <div class="w-full max-w-md p-6 bg-green-500 rounded-lg shadow-md">
-          <h2 class="text-2xl font-bold text-center text-white">Registrati</h2>
-          <div v-if="error.status"> 
+          <h2 class="text-4xl font-bold text-center text-white">Registrati</h2>
+          <div v-if="error.status" class="mt-2 bg-white rounded-lg p-4 text-red-500 font-bold"> 
             <h1>
               {{error.message}}
             </h1>
           </div>
-          <form class="mt-6">
+          <form class="mt-6 bg-white rounded-lg p-4">
             <div>
-              <label class="block font-bold mb-2 text-white" for="username">
+              <label class="block font-bold mb-2 text-gray-700" for="username">
                 Nome utente
               </label>
               <input v-model="this.user.nomeUtente" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="username" type="text" placeholder="Inserisci il tuo nome utente" />
             </div>
             <div class="mt-4">
-              <label class="block font-bold mb-2 text-white" for="email">
+              <label class="block font-bold mb-2 text-gray-700" for="email">
                 Email
               </label>
               <input v-model="this.user.email" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="email" type="email" placeholder="Inserisci la tua email" />
             </div>
             <div class="mt-4">
-              <label class="block font-bold mb-2 text-white" for="password">
+              <label class="block font-bold mb-2 text-gray-700" for="password">
                 Password
               </label>
               <input  v-model="this.user.password" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="password" type="password" placeholder="Inserisci la tua password" />
             </div>
             <div class="mt-4">
-              <label class="block font-bold mb-2 text-white" for="password-confirm">
+              <label class="block font-bold mb-2 text-gray-700" for="password-confirm">
                 Conferma password
               </label>
               <input class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="password-confirm" type="password" placeholder="Inserisci di nuovo la tua password" />
             </div>
             <div class="mt-6">
-              <button  class="w-full px-4 py-2 text-lg font-bold text-green-500 bg-white rounded-lg shadow-md hover:bg-green-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"  @click= "signin()">
+              <button  class="w-full px-4 py-2 text-lg font-bold bg-green-500 text-white hover:text-green-500 hover:bg-white rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"  @click= "signin()">
                 Registrati
               </button>
             </div>
           </form>
           <hr class="my-6 border-gray-300 w-full" />
+          <router-link to="/login">
           <p class="mt-8 text-center">
-            Hai già un account? <a class="text-green-500 hover:text-green-700 font-semibold" href="#">Accedi</a>
+            Hai già un account? <a class="text-gray-700 hover:text-white font-semibold">Accedi</a>
           </p>
+          </router-link>
         </div>
       </div>
     </div>
@@ -62,6 +56,7 @@
 import { config } from '@/config'
 import router from '@/router'
 import { defineComponent } from 'vue'
+
   export default defineComponent({
     name: 'SignUp',
     data(){
@@ -109,3 +104,11 @@ import { defineComponent } from 'vue'
     }
   })
 </script>
+<style scoped>
+  .custom{
+    background-image: url("../images/sfondo.jpeg");
+    background-size: cover;
+    background-position:center;
+    resize: both;
+  }
+</style>

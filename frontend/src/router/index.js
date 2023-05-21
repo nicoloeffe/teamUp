@@ -6,6 +6,7 @@ import AdminAccountView from '../views/AdminAccountView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import PrenotazioneView from '../views/PrenotazioneView.vue'
 import NotFoundView from '../views/NotFoundView'
+import ConfermaView from '../views/ConfermaView'
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
     path: '/prenotazione',
     name: 'Prenotazione',
     component: PrenotazioneView,     
+  },
+  {
+    path: '/conferma',
+    name: 'Conferma',
+    component: ConfermaView,     
   },
   {
     path: '/signup',
