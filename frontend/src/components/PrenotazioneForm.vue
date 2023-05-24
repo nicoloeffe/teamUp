@@ -10,8 +10,8 @@
         </div>
         <form class="mt-6 bg-white rounded-lg p-4 ">
           <div>
-            <label class="text-4xl block text-gray-700 font-bold mb-2" for="nome">
-              Nome: {{this.datiPrenotazione.user}}
+            <label class="text-4xl block text-gray-700 font-bold mb-2" for="nome" style="text-transform: capitalize;">
+              {{this.datiPrenotazione.user}}
             </label>
           </div>          
           <div class="container flex">

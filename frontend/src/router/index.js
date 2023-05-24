@@ -7,12 +7,18 @@ import ProfileView from '../views/ProfileView.vue'
 import PrenotazioneView from '../views/PrenotazioneView.vue'
 import NotFoundView from '../views/NotFoundView'
 import ConfermaView from '../views/ConfermaView'
+import DashBoardView from '../views/DashBoardView'
 
 const routes = [
   {
     path: '/',
     name: 'HomePage',
     component: HomeView
+  },
+  {
+    path: '/dashboard',
+    name: 'DashBoard',
+    component: DashBoardView
   },
   {
     path: '/prenotazione',
