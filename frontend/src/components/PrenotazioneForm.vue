@@ -3,23 +3,17 @@
     <div class="flex flex-col items-center justify-center min-h-screen">
       <div class="w-full max-w-md p-6 bg-green-500 rounded-lg shadow-md">
         <h2 class="text-4xl font-bold text-center text-white">Prenotazione</h2>
+        <div v-if="error.status" class="mt-2 bg-white rounded-lg p-4 text-red-500 font-bold">
+          <h1>
+            {{ error.message }}
+          </h1>
+        </div>
         <form class="mt-6 bg-white rounded-lg p-4 ">
           <div>
-            <label class="block text-gray-700 font-bold mb-2" for="nome">
-              Nome
+            <label class="text-4xl block text-gray-700 font-bold mb-2" for="nome">
+              Nome: {{this.datiPrenotazione.user}}
             </label>
-            <input v-model="this.datiPrenotazione.nome"
-              class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white"
-              id="username" type="text" placeholder="Inserisci il tuo nome" />
-          </div>
-          <div class="mt-4">
-            <label class="block text-gray-700 font-bold mb-2" for="cognome">
-              cognome
-            </label>
-            <input v-model="this.datiPrenotazione.cognome"
-              class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white"
-              id="cognome" type="cognome" placeholder="Inserisci il tuo cognome" />
-          </div>
+          </div>          
           <div class="container flex">
             <div class="mt-4">
               <label class="block text-gray-700 font-bold mb-2" for="date">
@@ -51,6 +45,7 @@
 <script>
 import { config } from "@/config";
 import router from '@/router';
+import store from "@/store";
 
 export default {
   data(){
@@ -58,16 +53,21 @@ export default {
       datiPrenotazione:{
         nome:"",
         data:"",
-        orario:""
+        orario:"",
+        user: store.getters.getUser
 
-      }
-    }
+      },
+      error: {
+          status: false,
+          message: "default message"
+        },
+    };
   },
   methods: {
     async inviaPrenotazione() {
       const datiPrenotazione = {
         // Raccogli i dati necessari per la prenotazione dagli input del form
-        nome: this.datiPrenotazione.nome + " " + this.datiPrenotazione.cognome,
+        nome: store.getters.getUser,
         data: this.datiPrenotazione.data,
         orario: this.datiPrenotazione.orario,
       };
@@ -90,9 +90,10 @@ export default {
 
         // Prenotazione inviata con successo, esegui le azioni necessarie
         router.push({name: "Conferma"})
-      } catch (errore) {
-        console.error(errore);
-        // Gestisci l'errore, visualizza un messaggio, ecc.
+      } catch (error) {
+        this.error.status = true;
+        this.error.message = error || "Errore inaspettato"
+        console.error(error);
       }
     },
   },

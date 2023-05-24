@@ -73,7 +73,7 @@ exports.loginUtente = async (req, res) => {
                 expiresIn: "1 day"
             })
 
-        res.status(200).json({ success: true, token: token })//ritorno 200 se la richiesta va a buon fine
+        res.status(200).json({ success: true, token: token, nome: utente.nome })//ritorno 200 se la richiesta va a buon fine
 
     } catch (err) {
         res.status(500).json({ success: false, error: err.message })//se invece ci sono errori diversi ritorno 500

@@ -4,7 +4,7 @@ import { createStore } from 'vuex'
 const store = createStore({
   state () {
     return {
-      user: { },
+      user: "",
       token: ""
     }
   },
@@ -19,8 +19,11 @@ const store = createStore({
     },
     }, 
     getters: {
-        getToken(){
-            return this.token
+        getToken: state => {
+            return state.token
+        },
+        getUser: state => {
+            return state.user
         }
     }
 })

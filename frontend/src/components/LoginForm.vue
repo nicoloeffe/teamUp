@@ -74,8 +74,8 @@ export default defineComponent({
           const data= await res.json();
 
           if(data.success){
-            console.log('user logged in')
-            store.commit('setToken', {user: {}, token: data.token})
+            console.log('user logged in ' + data.nome)
+            store.commit('setToken', {user: data.nome, token: data.token})
             router.push({name: "Prenotazione"})
           }
 
