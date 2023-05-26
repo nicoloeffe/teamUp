@@ -23,7 +23,7 @@ const schemaCampo = new mongoose.Schema({
     },
     report :{
         type: [mongoose.Types.ObjectId],
-        ref: ''
+        ref: 'report'
     }
 })
 module.exports=mongoose.model('campo',schemaCampo);

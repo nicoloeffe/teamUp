@@ -19,14 +19,15 @@ exports.inserisciCampo= async (req,res)=>{
         if(!prenotazioni){
             //se non esiste salvo il campo creato senza prenotazioni all'interno
             const nuovoCampo= await newCampo.save();
-            console.log(nuovoCampo);
+            console.log(nuovoCampo + " Campo senza prenotazioni creato");
             res.status(200).json({success:true, message: "Campo senza prenotazioni creato"+ " /n" +nuovoCampo})
         }else{
             //in questo caso ci viene fornita la prenotazione. Procedo a crearne una (niente controlli sui campi inseriti)
             const newPrenotazione= new Prenotazione({
-                dataInizio: prenotazioni.dataInizio,
+                orario: prenotazioni.orario,
+                data:prenotazioni.data,
                 report: prenotazioni.report,
-                campo: nuovoCampo,
+                campo: newCampo,
                 durata: prenotazioni.durata
                })
                //faccio il push della prenotazione creata nel rispettivo array del campo
@@ -66,7 +67,7 @@ exports.inserisciPrenotazioneCampo= async (req,res)=>{
         }
         //se il campo esiste allora procedo con la creazione della prenotazione
         const nuovaPrenotazione= new Prenotazione({
-            dataInizio: prenotazione.dataInizio,
+            orario: prenotazione.orario,
             report: prenotazione.report,
             durata: prenotazione.durata,
             campo: campoTrovato,
@@ -89,11 +90,12 @@ exports.getOrariPrenotazione= async (req,res)=>{
     try{
         const findCampo = await Campo
             .findOne({nome: nome})
-            .populate('prenotazioni',"-_id dataInizio");
+            .populate('prenotazioni',"-_id orario");
 
         if (!findCampo) {
             return res.stauts(404).json({success:false, message: "Campo non trovato!"});
         }
+        console.log(findCampo.prenotazioni)
         res.status(200).json({success: true, message: findCampo.prenotazioni})
 
     }catch(error){

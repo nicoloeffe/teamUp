@@ -17,7 +17,7 @@ exports.registrazioneUtente= async (req,res)=>{
     //controllo che l'utente non sia gia registrato
     try{
         const findUtente= await Utente.findOne({email: email})
-        if(findUtente){
+        if(!findUtente){
             return res.status(400).json({succes: false, message: "Utente già registrato"})//se l'utente è gia registrato ritorno 400
         }
 

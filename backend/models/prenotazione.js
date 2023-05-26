@@ -6,7 +6,11 @@ const prenotazioneSchema= new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref : 'campo'
     },
-    dataInizio:{
+    data:{
+        type: Date,
+        required: true
+    },
+    orario:{
         type: String,
         required: true
     },
@@ -20,5 +24,5 @@ const prenotazioneSchema= new mongoose.Schema({
         ref: 'report'
     }
 })
-
+//nome o Utente reference?
 module.exports= mongoose.model('prenotazione',prenotazioneSchema);

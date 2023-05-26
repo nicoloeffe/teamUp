@@ -12,11 +12,14 @@ var corsOptions={
 app.use(cors(corsOptions));
 
 const authRoute= require ('./routes/autenticazione')
+const prenotazioniRouter= require('./routes/prenotazioni');
 
 app.use(express.json());
 
 app.use(express.urlencoded({extended:true}));
-app.use(authRoute);
+
+app.use("/auth",authRoute);
+app.use("/prenotazioni", prenotazioniRouter);
 app.use('/*', (req,res)=>res.status(404).json({succes:false, message:"Route inesistente"}))
 
 const db= require('./models');
