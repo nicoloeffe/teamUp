@@ -13,6 +13,7 @@ app.use(cors(corsOptions));
 
 const authRoute= require ('./routes/autenticazione')
 const prenotazioniRouter= require('./routes/prenotazioni');
+const campiRoute= require('./routes/campi')
 
 app.use(express.json());
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended:true}));
 
 app.use("/auth",authRoute);
 app.use("/prenotazioni", prenotazioniRouter);
+app.use("/campi",campiRoute);
 app.use('/*', (req,res)=>res.status(404).json({succes:false, message:"Route inesistente"}))
 
 const db= require('./models');

@@ -7,7 +7,7 @@ const prenotazioneSchema= new mongoose.Schema({
         ref : 'campo'
     },
     data:{
-        type: Date,
+        type: String,
         required: true
     },
     orario:{

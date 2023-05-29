@@ -7,7 +7,7 @@ const invioEmail= require('./email');
 exports.registrazioneUtente= async (req,res)=>{
 
     //recupero i campi dal body della richiesta
-    const {nomeUtente, email, password}= req.body;
+    const {nomeUtente, email, password, gestore}= req.body;
     console.log(nomeUtente +" "+ email)
 
     //controllo che tutti i campi siano compilati
@@ -17,7 +17,7 @@ exports.registrazioneUtente= async (req,res)=>{
     //controllo che l'utente non sia gia registrato
     try{
         const findUtente= await Utente.findOne({email: email})
-        if(!findUtente){
+        if(findUtente){
             return res.status(400).json({succes: false, message: "Utente già registrato"})//se l'utente è gia registrato ritorno 400
         }
 
@@ -26,9 +26,11 @@ exports.registrazioneUtente= async (req,res)=>{
         const newUtente= new Utente({
             nome: nomeUtente,
             email: email,
-            password: password,
-            ruolo: 'Utente'
-        })
+            password: password
+        })//check se viene passato il campo gestore 
+        if(!gestore){
+            newUtente.ruolo='Utente'
+        }else newUtente.ruolo='Admin'
         const nuovoUtente= await newUtente.save()
         res.status(201).json({succes:true, message:nuovoUtente})
     }catch (err){
