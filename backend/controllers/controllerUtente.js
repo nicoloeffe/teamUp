@@ -7,7 +7,7 @@ const invioEmail = require('./email');
 exports.registrazioneUtente= async (req,res)=>{
 
     //recupero i campi dal body della richiesta
-    const {nomeUtente, email, password}= req.body;
+    const {nomeUtente, email, password, gestore}= req.body;
     console.log(nomeUtente +" "+ email)
 
     //controllo che tutti i campi siano compilati
@@ -26,9 +26,11 @@ exports.registrazioneUtente= async (req,res)=>{
         const newUtente= new Utente({
             nome: nomeUtente,
             email: email,
-            password: password,
-            ruolo: 'Utente'
-        })
+            password: password
+        })//check se viene passato il campo gestore 
+        if(!gestore){
+            newUtente.ruolo='Utente'
+        }else newUtente.ruolo='Admin'
         const nuovoUtente= await newUtente.save()
         res.status(201).json({success:true, message:nuovoUtente})
     }catch (err){
@@ -73,7 +75,7 @@ exports.loginUtente = async (req, res) => {
                 expiresIn: "1 day"
             })
 
-        res.status(200).json({ success: true, token: token, nome: utente.nome })//ritorno 200 se la richiesta va a buon fine
+        res.status(200).json({ success: true, token: token, nome: utente.nome, email: utente.email })//ritorno 200 se la richiesta va a buon fine
 
     } catch (err) {
         res.status(500).json({ success: false, error: err.message })//se invece ci sono errori diversi ritorno 500

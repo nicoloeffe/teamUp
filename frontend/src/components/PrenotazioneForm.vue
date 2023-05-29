@@ -51,9 +51,11 @@ export default {
   data() {
     return {
       datiPrenotazione: {
+        campo: {nome: "campo 1"},
         data: "",
         orario: "", 
-        user: store.getters.getUser,
+        //utente: store.getters.getUser,
+        utente: {email: store.getters.getEmail}
       },
       error:{
           status: false,
@@ -66,9 +68,10 @@ export default {
   console.log("request received");
   
   const datiPrenotazione = {
-    nome: store.getters.getUser,
+    campo: this.datiPrenotazione.campo,
     data: this.datiPrenotazione.data,
     orario: this.datiPrenotazione.orario,
+    utente: this.datiPrenotazione.utente,
   };
   
   const opzioniRichiesta = {

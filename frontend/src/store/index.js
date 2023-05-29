@@ -5,6 +5,7 @@ const store = createStore({
   state () {
     return {
       user: "",
+      email: "",
       token: ""
     }
   },
@@ -12,6 +13,7 @@ const store = createStore({
     // payload: {user: {}, token: ""}
     setToken(state, payload){
         state.user = payload.user
+        state.email = payload.email
         state.token = payload.token
 
         // controllare se flag rimani loggato
@@ -24,7 +26,10 @@ const store = createStore({
         },
         getUser: state => {
             return state.user
-        }
+        },
+        getEmail: state => {
+          return state.email
+      }
     }
 })
 
