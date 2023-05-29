@@ -17,8 +17,10 @@
       NavBar
     },
     mounted(){
-      if(!store.state.token)
-      router.push({name: "Login"})
+      if(!store.state.token){        
+      router.replace({name: "Login"})      
+      console.log("utente non autenticato")
+      }
     },
   };
   </script>

@@ -7,7 +7,7 @@ exports.creaPrenotazione = async (req, res) => {
     const { nome, data, orario } = req.body;
 
     if(nome === "" || data === "" || orario === ""){
-      return res.status(400).json({status: "Bad Request", messaggio: "Bad Request"})
+      return res.status(400).json({success: false, message: "compilare tutti i campi"})
     }
     
     // Creare una nuova prenotazione utilizzando il modello Prenotazione
@@ -21,10 +21,10 @@ exports.creaPrenotazione = async (req, res) => {
     await prenotazione.save();
 
     // Restituire una risposta di successo
-    res.status(201).json({ messaggio: 'Prenotazione creata con successo' });
+    res.status(201).json({success: true, message: 'Prenotazione creata con successo' });
   } catch (errore) {
     // Gestire eventuali errori
     console.error(errore);
-    res.status(500).json({ errore: 'Si è verificato un errore' });
+    res.status(500).json({success: false, message: 'Si è verificato un errore' });
   }
 };

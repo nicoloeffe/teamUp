@@ -15,6 +15,7 @@
     components: {
       NavBar, 
       DashBoard,
-    }
+    },
+    
   }
   </script>

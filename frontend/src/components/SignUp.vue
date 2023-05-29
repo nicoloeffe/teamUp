@@ -1,7 +1,7 @@
 <template>
   <body>
     <div class="custom">
-      <div class="flex flex-col items-center justify-center min-h-screen">
+      <div class="flex flex-col items-center justify-center ch">
         <div class="w-full max-w-md p-6 bg-green-500 rounded-lg shadow-md">
           <h2 class="text-4xl font-bold text-center text-white">Registrati</h2>
           <div v-if="error.status" class="mt-2 bg-white rounded-lg p-4 text-red-500 font-bold"> 
@@ -110,5 +110,8 @@ import { defineComponent } from 'vue'
     background-size: cover;
     background-position:center;
     resize: both;
+  }
+  .ch{
+    min-height: 90vh;
   }
 </style>
