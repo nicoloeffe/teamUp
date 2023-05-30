@@ -1,9 +1,10 @@
 const express= require ('express');
 const campiRouter = express.Router();
 
-const controllerCampi= require('../controllers/controllerCampo')
+const controllerCampo = require('../controllers/controllerCampo')
 
-campiRouter.post('/addcampo',controllerCampi.inserisciCampo);
-campiRouter.get('/getorari', controllerCampi.getOrariPrenotazione);
+campiRouter.post('/addcampo',controllerCampo.inserisciCampo);
+campiRouter.post('/getorari', controllerCampo.getOrariPrenotazione);
+campiRouter.get('/getcampi', controllerCampo.getCampi);
 
 module.exports = campiRouter;

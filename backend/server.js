@@ -8,7 +8,7 @@ const db= require('./models');
 // import all ROUTES
 const authRoute = require ('./routes/autenticazione');
 const prenotazioniRouter = require('./routes/prenotazioni');
-const campiRouter = require('./routes/campi')
+const campiRouter = require('./routes/campi');
 
 const app=express();
 
@@ -22,8 +22,8 @@ app.use(express.urlencoded({extended:true}));
 
 // Use Controllers
 app.use("/auth", authRoute);
+app.use("/campi", campiRouter)
 app.use("/prenotazioni", prenotazioniRouter);
-app.use("/campo",campiRouter);
 
 
 // Gestisci le pagine che non esistono

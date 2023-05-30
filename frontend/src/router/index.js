@@ -8,6 +8,7 @@ import PrenotazioneView from '../views/PrenotazioneView.vue'
 import NotFoundView from '../views/NotFoundView'
 import ConfermaView from '../views/ConfermaView'
 import DashBoardView from '../views/DashBoardView'
+import CampiView from '../views/CampiView'
 
 const routes = [
   {
@@ -50,7 +51,11 @@ const routes = [
     name: 'Profile',
     component: ProfileView
   },
-
+  {
+    path: '/campi',
+    name: 'Campi',
+    component: CampiView
+  },
   // TO BE LAST
   { 
     path: "/:catchAll(.*)",

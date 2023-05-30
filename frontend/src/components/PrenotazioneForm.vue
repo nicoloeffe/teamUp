@@ -63,8 +63,7 @@ export default {
       }
     }
   },
-  methods: {
-  async inviaPrenotazione() {
+  methods: {async inviaPrenotazione() {
   console.log("request received");
   
   const datiPrenotazione = {
