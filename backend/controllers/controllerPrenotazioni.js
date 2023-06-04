@@ -5,14 +5,15 @@
  
  exports.creaPrenotazione = async (req, res) => {             //funzione che crea la prenotazione e la inserisce
                                                               //nei documenti del campo e dell'utente
-     const{campo, data, utente, orario} = req.body;
+     const{nome, data, utente, orario} = req.body;
      try{
          //controllo che i campi siano compilati correttamente
-         if(!campo || !data || !utente || !orario){
+         if(!nome || !data || !utente || !orario){
              res.status(400).json({success:false, message: "Compilare tutti i campi "})
+             
          }
          //ricerco il campo per inserire la relativa prenotazione
-         const findCampo= await Campo.findOne({nome: campo.nome});
+         const findCampo= await Campo.findOne({nome: nome});
          //se non trovo il campo inserito ritorno errore
          if(!findCampo){
              res.status(400).json({success:false, message: "Impossibile trovare il campo inserito. Ricontrollare"})
