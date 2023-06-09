@@ -60,3 +60,14 @@ exports.getOrariPrenotazione= async (req,res)=>{        //funzione che, dato il 
         res.status(400).json({success:false, message: error})
     }
 }
+
+exports.getAllCampi= async (req,res)=>{
+    try{
+        const campi= await Campo.find().select(' posizione nome')
+        console.log(campi) 
+        res.status(200).json({success: true, message: campi})
+        }
+        catch(error){
+            res.status(400).json({success:false, message:error})
+        }
+}

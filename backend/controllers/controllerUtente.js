@@ -165,3 +165,19 @@ exports.cambioPassword= async (req,res)=>{
     }
 
 }
+
+exports.getUtente= async (req,res)=>{
+    const {utente}= req.body;
+    try{
+        if(!utente){
+            res.status(401).json({success:false, message: "Compilare correttamente i campi"})
+        }
+        const findUtente= await Utente.findOne({email:utente.email});
+        if(!findUtente){
+            res.status(401).json({success:false, message: "Impossibile trovare l'utente richiesto"})
+        }
+        res.status(200).json({success:true, message: findUtente})
+    }catch(error){
+        res.status(400).json({success:false, message:error})
+    }
+}

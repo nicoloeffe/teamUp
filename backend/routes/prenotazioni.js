@@ -6,5 +6,6 @@ const controllerPrenotazioni = require('../controllers/controllerPrenotazione');
 
 // middleware > 
 prenotazioniRouter.post('/', controllerPrenotazioni.creaPrenotazione);
+prenotazioniRouter.get('/',controllerPrenotazioni.getPrenotazioniUtente);
 
 module.exports = prenotazioniRouter;

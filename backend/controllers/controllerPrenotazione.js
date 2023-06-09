@@ -48,3 +48,23 @@ exports.creaPrenotazione = async (req, res) => {             //funzione che crea
         res.status(401).json({success:false, message: error})
     }
   };
+
+exports.getPrenotazioniUtente= async (req,res)=>{
+    const {email}= req.body;
+    try{
+        const findUtente= await Utente.findOne({email:email})
+        .populate({
+            path: 'prenotazioni',
+            select: 'data orario campo'
+    })
+        if(!findUtente){
+            res.status(401).json({success:false, message: "Impossibile trovare l'utente"})
+        }
+        else{
+            res.status(200).json({success:true, message: findUtente.prenotazioni})
+        }
+
+    }catch(error){
+        res.status(400).json({success:false, message: error})
+    }
+}

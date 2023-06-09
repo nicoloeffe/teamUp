@@ -1,80 +1,538 @@
-/auth/signin:
-  post:
-    description: Crea un Utente
-    response:
-      201: 
-        description: Ritorna l'id dell'utente
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                success:
-                  type: boolean
-                utente: 
-                 type: Utente
-/auth/login:
-  post:
-    description: Permette di effettuare il login
-    response:
-      200: 
-        description: Ritorna l'id dell'utente
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                success:
-                  type: boolean
-               token: 
-                 type: jwt
+FORMAT: 1A
 
-                 type: String
-/auth/changepass:
-  put:
-    description: Permette di cambiare la password
-    response:
-      200: 
-        description: Ritorna un messaggio di conferma cambio password
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                success:
-                  type: boolean
-               message: 
-                 type: String
+# Documentazione API TeamUp
 
-/auth/retrievepass:
-  put:
-      description: Permette di recuperare la password
-      response: 
-      200:
-        description: Ritorna un messaggio di conferma cambio password
-        content:
-          application/json:
-            schema:
-            type: object
-            properties:
-              success:
-                type: boolean
-              message:
-                type: String
+# Group Registrazione Utente
+## Registrazione Utente [/auth/signin]
 
-/prenotazioni:
-  post:
-    description: Permette di prenotare una struttura
-    response:
-      201: 
-        description: Ritorna un messaggio di conferma prenotazione
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                success:
-                  type: boolean
-                message: 
-                  type: String
+### Registrazione Utente [POST]
+Registra un nuovo utente nel sistema.
 
++ Request (application/json)
+    + Body
+        ```json
+        {
+            "nomeUtente": "string",
+            "email": "string",
+            "password": "string",
+            "gestore": "boolean"
+        }
+        ```
+
++ Response 201 (application/json)
+    + Body
+        ```json
+        {
+            "success": true,
+            "message": {
+                "_id": "string",
+                "nome": "string",
+                "email": "string"
+            }
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Compilare tutti i campi!"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Utente già registrato"
+        }
+        ```
+
++ Response 500 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "{errore}"
+        }
+        ```
+
+# Group Login Utente
+## Login Utente [/auth/signup]
+
+### Login Utente [POST]
+Procedura di login per un utente già registrato.
+
++ Request (application/json)
+    + Body
+        ```json
+        {
+            "email": "string",
+            "password": "string"
+        }
+        ```
+
++ Response 200 (application/json)
+    + Body
+        ```json
+        {
+            "success": true,
+            "token": "string"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Compilare tutti i campi"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Utente inesistente"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Password incorretta"
+        }
+        ```
+
++ Response 500 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "error": "{errore}"
+        }
+        ```
+
+# Group Recupero Password
+## Recupera Password [/auth/changepass]
+
+### Recupera Password [POST]
+Recupera la password di un utente.
+
++ Request (application/json)
+    + Body
+        ```json
+        {
+            "email": "string"
+        }
+        ```
+
++ Response 200 (application/json)
+    + Body
+        ```json
+        {
+            "success": true,
+            "messaggio": "email correctly sent"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "email not provided"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Could not find the email"
+        }
+        ```
+
++ Response 500 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "{errore}"
+        }
+        ```
+
+# Group Cambio Password
+## Cambio Password [/auth/changepass]
+
+### Cambio Password [POST]
+Cambia la password di un utente.
+
++ Request (application/json)
+    + Body
+        ```json
+        {
+            "email": "string",
+            "oldPassword": "string",
+            "newPassword": "string"
+        }
+        ```
+
++ Response 200 (application/json)
+    + Body
+        ```json
+        {
+            "success": true,
+            "message": "Succesfully changed your password"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Empty fields were given in the request"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "User non found"
+        }
+        ```
+
++ Response 401 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Old password provided is wrong"
+        }
+        ```
+
++ Response 500 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "{errore}"
+        }
+        ```
+
+# Group Get Utente
+## Get Utente [/auth]
+
+### Get Utente [GET]
+Ottiene le informazioni di un utente.
+
++ Request (application/json)
+    + Body
+        ```json
+        {
+            "utente": {
+                "email": "string"
+            }
+        }
+        ```
+
++ Response 200 (application/json)
+    + Body
+        ```json
+        {
+            "success": true,
+            "message": {
+                "_id": "string",
+                "nome": "string",
+                "email": "string"
+                // Altri campi dell'utente
+            }
+        }
+        ```
+
++ Response 401 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Compilare correttamente i campi"
+        }
+        ```
+
++ Response 401 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Impossibile trovare l'utente richiesto"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "{errore}"
+        }
+        ```
+        
+
+
+
+# Group Crea Prenotazione
+## Crea Prenotazione [/prenotazioni]
+
+### Crea Prenotazione [POST]
+Crea una nuova prenotazione e la inserisce nei documenti del campo e dell'utente.
+
++ Request (application/json)
+    + Body
+        ```json
+        {
+            "campo": {
+                "nome": "string"
+            },
+            "durata": "string",
+            "data": "string",
+            "utente": {
+                "email": "string"
+            },
+            "orario": "string"
+        }
+        ```
+
++ Response 200 (application/json)
+    + Body
+        ```json
+        {
+            "success": true,
+            "message": "nuova prenotazione creata: {id_prenotazione}"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Compilare tutti i campi"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Impossibile trovare il campo inserito. Ricontrollare"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Impossibile creare la prenotazione: Utente non trovato"
+        }
+        ```
+
++ Response 401 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "{errore}"
+        }
+        ```
+
+# Group Get Prenotazioni Utente
+## Get Prenotazioni Utente [/prenotazioni]
+
+### Get Prenotazioni Utente [GET]
+Ottiene le prenotazioni di un utente.
+
++ Request (application/json)
+    + Body
+        ```json
+        {
+            "email": "string"
+        }
+        ```
+
++ Response 200 (application/json)
+    + Body
+        ```json
+        {
+            "success": true,
+            "message": [
+                {
+                    "data": "string",
+                    "orario": "string",
+                    "campo": {
+                        "nome": "string"
+                    }
+                }
+            ]
+        }
+        ```
+
++ Response 401 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Impossibile trovare l'utente"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "{errore}"
+        }
+        ```
+
+
+# Group Inserisci Campo
+## Inserisci Campo [/campi/addcampo]
+
+### Inserisci Campo [POST]
+Crea un nuovo campo.
+
++ Request (application/json)
+    + Body
+        ```json
+        {
+            "nome": "string",
+            "posizione": "string",
+            "descrizione": "string",
+            "gestore": {
+                "email": "string"
+            }
+        }
+        ```
+
++ Response 200 (application/json)
+    + Body
+        ```json
+        {
+            "success": true,
+            "message": "Campo creato correttamente"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Impossibile trovare il gestore indicato"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Il campo esiste già"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "{errore}"
+        }
+        ```
+
+# Group Get Orari Prenotazione
+## Get Orari Prenotazione [/campi/getOrariPrenotazione]
+
+### Get Orari Prenotazione [GET]
+Ottiene gli orari delle prenotazioni per un determinato campo e data.
+
++ Request (application/json)
+    + Body
+        ```json
+        {
+            "nome": "string",
+            "data": "string"
+        }
+        ```
+
++ Response 200 (application/json)
+    + Body
+        ```json
+        {
+            "success": true,
+            "message": [
+                {
+                    "orario": "string"
+                }
+            ]
+        }
+        ```
+
++ Response 404 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "Campo non trovato!"
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "{errore}"
+        }
+        ```
+
+# Group Get All Campi
+## Get All Campi [/campi/getAllCampi]
+
+### Get All Campi [GET]
+Ottiene tutti i campi.
+
++ Response 200 (application/json)
+    + Body
+        ```json
+        {
+            "success": true,
+            "message": [
+                {
+                    "posizione": "string",
+                    "nome": "string"
+                }
+            ]
+        }
+        ```
+
++ Response 400 (application/json)
+    + Body
+        ```json
+        {
+            "success": false,
+            "message": "{errore}"
+        }
+        ```
