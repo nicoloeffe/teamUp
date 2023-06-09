@@ -1,6 +1,6 @@
 <template>
   <div class="custom ">
-    <div class="container-h ch">
+    <div class="container-h  ch">
 
       <div class="w-full container-v max-w-sm p-4 bg-green-500 rounded-lg shadow-md">
         <div v-for="campo in campos" :key="campo._id" class="bg-white rounded-lg p-6 my-2">
@@ -40,20 +40,19 @@
               <input v-model="this.date"
                 class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white"
                 id="date" type="date" />
+              </div>
+              <div class="flex-grow" v-if="this.date !== ''"></div>
+              <div class="mt-4" v-if="this.date !== ''">
+              <label class="block text-gray-700 font-bold mb-2" for="time">
+                Orario
+              </label>
+              <select v-model="datiPrenotazione.orario"
+                class="w-full px-4 py-2 rounded-lg shadow-md border font-bold border-gray-400 focus:outline-none focus:border-white bg-white text-green-600 "
+                id="time">
+                <option disabled selected hidden>Scegli un'ora</option>
+                <option class="font-bold disabled:text-red-600" v-for="(time, index) in availableTimes" :value="time.value" :key="index" :disabled="time.disabled">{{ time.value }}</option>
+              </select>
             </div>
-            <div class="flex-grow" v-if="this.date !== ''"></div>
-            <div class="mt-4" v-if="this.date !== ''">
-            <label class="block text-gray-700 font-bold mb-2" for="time">
-              Orario
-            </label>
-            <select v-model="datiPrenotazione.orario"
-              class="w-full px-4 py-2 rounded-lg shadow-md border font-bold border-gray-400 focus:outline-none focus:border-white bg-white text-green-600 "
-              id="time">
-              <option disabled selected hidden>Scegli un'ora</option>
-              <option class="font-bold disabled:text-red-600" v-for="(time, index) in availableTimes" :value="time.value" :key="index" :disabled="time.disabled">{{ time.value }}</option>
-            </select>
-          </div>
-
           </div>
           <button @click.prevent="inviaPrenotazione()"
             class="mt-6 text-white bg-green-700 hover:bg-green-800 font-medium rounded-full text-base px-5 py-2 text-center dark:bg-green-600 fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">

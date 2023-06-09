@@ -1,6 +1,6 @@
  //require da utilizzare
- const Prenotazione= require('../models/prenotazione');
- const Campo =require('../models/campo')
+ const Prenotazione = require('../models/prenotazione');
+ const Campo = require('../models/campo')
  const Utente = require('../models/utente')
  
  exports.creaPrenotazione = async (req, res) => {             //funzione che crea la prenotazione e la inserisce
@@ -41,10 +41,36 @@
              //salvo
              nuovaPrenotazione.save();
  
-             res.status(200).json({success:true, message: "nuova prenotazione creata : "+ nuovaPrenotazione.id})
+             res.status(200).json({success:true, message: "nuova prenotazione creata : " + nuovaPrenotazione.id})
          }
      }catch(error){
          res.status(401).json({success:false, message: error})
      }
-   };
+   }
+
+   exports.fetchPrenotazione = async (req, res) => {
+    const { utente } = req.body;
+  
+    try {
+      const findUtente = await Utente.findOne({ email: utente.email }).populate({
+        path: "prenotazioni",
+        populate: { path: "campo", select: "nome" },
+      });
+  
+      if (!findUtente) {
+        res.status(400).json({ success: false, message: "Utente non riconosciuto" });
+      } else {
+        const findPrenotazione = findUtente.prenotazioni.map((prenotazione) => ({
+          campo: prenotazione.campo.nome,
+          data: prenotazione.data,
+          orario: prenotazione.orario,
+        }));
+  
+        res.status(200).json({ success: true, findPrenotazione });
+      }
+    } catch (error) {
+      res.status(401).json({ success: false, message: error });
+    }
+  };
+  
  
