@@ -12,13 +12,13 @@ exports.registrazioneUtente= async (req,res)=>{
 
     //controllo che tutti i campi siano compilati
     if(!email || !nomeUtente || !password){
-        return res.status(400).json({succes: false, message: "Compilare tutti i campi!"})//se tutti i campi non sono compilati ritorno 400
+        return res.status(400).json({success: false, message: "Compilare tutti i campi!"})//se tutti i campi non sono compilati ritorno 400
     }
     //controllo che l'utente non sia gia registrato
     try{
         const findUtente= await Utente.findOne({email: email})
         if(findUtente){
-            return res.status(400).json({succes: false, message: "Utente già registrato"})//se l'utente è gia registrato ritorno 400
+            return res.status(400).json({success: false, message: "Utente già registrato"})//se l'utente è gia registrato ritorno 400
         }
 
         //altrimenti procedo con la registrazione
@@ -32,9 +32,9 @@ exports.registrazioneUtente= async (req,res)=>{
             newUtente.ruolo='Utente'
         }else newUtente.ruolo='Admin'
         const nuovoUtente= await newUtente.save()
-        res.status(201).json({succes:true, message:nuovoUtente})
+        res.status(200).json({success:true, message:nuovoUtente})
     }catch (err){
-        res.status(500).json({succes:false, message: err})
+        res.status(500).json({success:false, message: err})
     }
 }
 
