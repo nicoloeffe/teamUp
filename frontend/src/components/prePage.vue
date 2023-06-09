@@ -2,6 +2,15 @@
   <div class="custom">
     <div class="flex flex-col items-center justify-center ch">
       <div class="w-full max-w-md p-4 bg-green-500 rounded-lg shadow-md">
+        <p class="text-2xl text-white">Prenotazioni di: </p>
+        <div class="mt-6 bg-white rounded-lg p-4 ">      
+          <div>
+            <!-- Mostra il nome utente -->
+            <label class="text-4xl block text-gray-700 font-bold mb-2" for="nome" style="text-transform: capitalize;">
+              {{ this.nomeUser }}
+            </label>
+          </div>  
+        </div>
         <div class="bg-white rounded-lg pt-4 my-2 max-h-96 overflow-auto ">
           <div v-for="prenotazione in bookedPrenotazioni" :key="prenotazione.id" class="flex items-center justify-center my-2 shadow-md ">
             <p>Data: {{ prenotazione.data }}</p>
@@ -10,6 +19,9 @@
             <div class=" w-10 "></div>
             <p>{{ prenotazione.campo }}</p>
           </div>
+          <div v-if="bookedPrenotazioni.length === 0" class="flex items-center justify-center mb-2">
+            <P class="text-2xl"> Nessuna prenotazione! </P>
+          </div>          
         </div>
       </div>
     </div>  
@@ -19,12 +31,14 @@
   
   <script>
   import { config } from "@/config";
+  import store from '@/store/index'
   
   export default {
     data() {
       return {
         bookedPrenotazioni: [],
-        utente: {email: "mariorossi@gmail.com"}
+        utente: {email: "mariorossi@gmail.com"},
+        nomeUser: store.getters.getUser
       }
     },
     mounted() {

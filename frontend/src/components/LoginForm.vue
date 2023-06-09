@@ -76,7 +76,7 @@ export default defineComponent({
           if(data.success){
             console.log('user logged in ' + data.nome)
             store.commit('setToken', {user: data.nome, email: data.email, token: data.token})
-            router.push({name: "Prenotazione"})
+            router.push({name: "DashBoard"})
           }
 
           else{

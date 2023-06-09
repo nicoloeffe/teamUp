@@ -1,20 +1,20 @@
 <template>
     <div >
         <NavBar/>
-        <CampiPage/>
+        <prePage/>
     </div>
   </template>
   
   <script>
   // @ is an alias to /src
   import NavBar from '@/components/NavBar.vue'
-  import CampiPage from '@/components/CampiPage.vue';
+  import prePage from '@/components/prePage.vue'
   
   export default {
-    name: 'CampiView',
+    name: 'preView',
     components: {
       NavBar, 
-      CampiPage,
+      prePage,
     },
     
   }

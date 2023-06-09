@@ -24,7 +24,7 @@ export default defineComponent({
     name:"ConfermaPage",    
     methods:{
     async Home(){
-      router.push({name: "HomePage"})
+      router.push({name: "DashBoard"})
     }
   }
 })

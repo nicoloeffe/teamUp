@@ -8,7 +8,7 @@ import PrenotazioneView from '../views/PrenotazioneView.vue'
 import NotFoundView from '../views/NotFoundView'
 import ConfermaView from '../views/ConfermaView'
 import DashBoardView from '../views/DashBoardView'
-import CampiView from '../views/CampiView'
+import preView from '../views/preView'
 
 const routes = [
   {
@@ -52,9 +52,9 @@ const routes = [
     component: ProfileView
   },
   {
-    path: '/campi',
-    name: 'Campi',
-    component: CampiView
+    path: '/preffettuate',
+    name: 'PrEff',
+    component: preView
   },
   // TO BE LAST
   { 
