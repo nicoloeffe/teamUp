@@ -1,3 +1,3 @@
 exports.config = {
-    BASE_URL: "http://127.0.0.1:8080",
+    BASE_URL: process.env.RENDER_EXTERNAL_HOSTNAME || "http://localhost:8080",
 }
