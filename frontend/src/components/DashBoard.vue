@@ -1,6 +1,6 @@
 <template>
-  <div class="custom ch">
-    <div class="flex flex-col items-center justify-center min-h-screen">
+  <div class="custom ">
+    <div class="container-h  ch">
       <div class="w-full max-w-md p-6 bg-green-500 rounded-lg shadow-md">
         <h2 class="text-2xl font-bold text-center text-white" style="text-transform: capitalize;">Ciao {{ this.datiUtente.nome }}!</h2>
         
@@ -46,25 +46,25 @@ export default {
 </script>
 
 <style scoped>
-.container-v {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.container-h {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.custom {
-  background-image: url("../images/sfondo.webp");
-  background-size: cover;
-  background-position: center;
-  resize: both;
-}
-.ch {
-  min-height: 90vh;
-}
+ .container-v {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .container-h {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .custom {
+    background-image: url("../images/sfondo.webp");
+    background-size: cover;
+    background-position: center;
+    resize: both;
+  }
+  .ch {
+    min-height: 90vh;
+  }
 </style>

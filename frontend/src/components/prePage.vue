@@ -37,7 +37,7 @@
     data() {
       return {
         bookedPrenotazioni: [],
-        utente: {email: "mariorossi@gmail.com"},
+        utente: {email: store.getters.getEmail},
         nomeUser: store.getters.getUser
       }
     },
