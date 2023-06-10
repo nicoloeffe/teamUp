@@ -47,7 +47,8 @@ connectDB()
 // })
 
 const PORT = config.PORT;
+const HOST = config.HOST;
 
-app.listen(PORT,()=>{
-    console.log(`Server is running on port ${PORT}`);
-})
+app.listen(PORT, HOST, () => {
+  console.log(`Server is running on http://${HOST}:${PORT}`);
+});
