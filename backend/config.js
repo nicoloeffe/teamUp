@@ -4,7 +4,7 @@ dotenv.config();
 module.exports = {
     NODE_ENV: process.env.NODE_ENV || "development",
 
-    PORT: 8080,
+    PORT: process.env.PORT || 8080,
     FRONT_PORT: process.env.FRONT_PORT || 8081,
     HOST: process.env.BASE_URL || "http://localhost:8080",
 
