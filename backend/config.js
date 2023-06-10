@@ -4,12 +4,11 @@ dotenv.config();
 module.exports = {
     NODE_ENV: process.env.NODE_ENV || "development",
 
-    PORT: 8080,
-    FRONT_PORT: 8081,
-    HOST: process.env.HOST || "http://localhost:8080",
-    FRONT_HOST: process.env.FRONT_HOST || "http://localhost:8081",
+    PORT: process.env.PORT || 8080,
+    FRONT_PORT: process.env.FRONT_PORT || 8081,
+    HOST: process.env.HOST || "localhost",
 
-    DB_URL_LOCAL: process.env.MONGODB_CONNECT_URI || 'mongodb://localhost',
+    DB_URL_LOCAL: process.env.DB_URL_LOCAL || 'mongodb://localhost',
     DB_URL_CLUSTER_TESTING: process.env.DB_URL_CLUSTER_TESTING,
     DB_URL_CLUSTER: process.env.DB_URL_CLUSTER,
 
