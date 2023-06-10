@@ -13,7 +13,7 @@ const campiRouter = require('./routes/campi');
 const app = express();
 
 var corsOptions = {
-    origin: config.HOST
+    origin: config.FRONT_HOST
 };
 
 app.use(cors(corsOptions));
