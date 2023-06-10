@@ -27,9 +27,9 @@ app.use("/prenotazioni", prenotazioniRouter);
 
 
 // Gestisci le pagine che non esistono
-app.use('/*', (req,res)=> {
-    res.status(404).json({succes:false, message:"Route inesistente"}) 
-})
+app.use((req, res) => {
+    res.status(404).json({ success: false, message: "Route inesistente" });
+  });
 
 const connectDB = require('./connectDB')
 
