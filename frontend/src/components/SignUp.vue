@@ -113,7 +113,7 @@ import { defineComponent } from 'vue'
 </script>
 <style scoped>
   .custom{
-    background-image: url("../images/sfondo.jpeg");
+    background-image: url("../images/sfondo.webp");
     background-size: cover;
     background-position:center;
     resize: both;

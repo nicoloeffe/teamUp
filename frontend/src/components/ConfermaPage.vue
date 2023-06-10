@@ -4,7 +4,7 @@
         <div class="w-full max-w-lg p-6 bg-green-500 rounded-lg shadow-md">          
         <h2 class="text-4xl font-bold text-white">Prenotazione Confermata!</h2>   
         <div class="mt-6 bg-white rounded-lg p-4 flex justify-center items-center">          
-          <img src="@/images/qr-code.png" alt="qr" class=" max-h-80">
+          <img src="@/images/qr-code.webp" alt="qr" class=" max-h-80">
         </div>
         <hr class="my-6 border-whitew-full" />
         <button v-on:click="Home()"
@@ -31,7 +31,7 @@ export default defineComponent({
 </script>
 <style scoped>
   .custom{
-    background-image: url("../images/sfondo.jpeg");
+    background-image: url("../images/sfondo.webp");
     background-size: cover;
     background-position:center;
     resize: both;
