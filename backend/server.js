@@ -31,16 +31,20 @@ app.use('/*', (req,res)=> {
     res.status(404).json({succes:false, message:"Route inesistente"}) 
 })
 
+const connectDB = require('./connectDB')
+
+connectDB()
+
 // controllare questo URI, nel senso che mondodb docs dice di fare un URI cosi
 // mongodb://username:password@127.0.0.1:27017/<nome_db>?options
-db.mongoose.connect("mongodb://127.0.0.1:27017/teamup_prod",{
-    useUnifiedTopology: true
-}).then(()=>{
-    console.log("Successfully connected to mongoDb")
-}).catch(err=>{
-    console.log(err);
-    process.exit();
-})
+// db.mongoose.connect(process.env.MONGODB_CONNECT_URI,{
+//     useUnifiedTopology: true
+// }).then(()=>{
+//     console.log("Successfully connected to mongoDb")
+// }).catch(err=>{
+//     console.log(err);
+//     process.exit();
+// })
 
 const PORT = config.PORT;
 

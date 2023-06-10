@@ -62,28 +62,28 @@ export default defineComponent({
     },
     methods:{
       async login(){
-        console.log("request received")
+        //console.log("request received")
         const opzioniRichiesta={
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(this.user)
         }
-        console.log(opzioniRichiesta.body);
+        //console.log(opzioniRichiesta.body);
         try{
           const res= await fetch(`${config.BASE_URL}/auth/login`, opzioniRichiesta);
           const data= await res.json();
 
           if(data.success){
-            console.log('user logged in ' + data.nome)
+            //console.log('user logged in ' + data.nome)
             store.commit('setToken', {user: data.nome, email: data.email, token: data.token})
             router.push({name: "DashBoard"})
           }
 
           else{
-            console.log("something went wrong")
+            //console.log("something went wrong")
             this.error.status=true;
             this.error.message= data?.error || data?.message || "Unexpected error"
-            console.log(this.error.message)
+            console.error(this.error.message)
           }
         }catch(error){
           this.error.status=true;

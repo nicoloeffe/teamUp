@@ -8,7 +8,7 @@ exports.registrazioneUtente= async (req,res)=>{
 
     //recupero i campi dal body della richiesta
     const {nomeUtente, email, password, gestore}= req.body;
-    console.log(nomeUtente +" "+ email)
+    //console.log(nomeUtente + " " + email)
 
     //controllo che tutti i campi siano compilati
     if(!email || !nomeUtente || !password){
@@ -39,9 +39,9 @@ exports.registrazioneUtente= async (req,res)=>{
 }
 
 exports.loginUtente = async (req, res) => {
-    console.log("Request for login received")
+    //console.log("Request for login received")
     const { email,password } = req.body
-    console.log(email+" "+ password)
+    //console.log(email + " " + password)
 
     // controllo su campi mancanti
     if (! email || !password)
@@ -84,7 +84,7 @@ exports.loginUtente = async (req, res) => {
 
 
 exports.recuperaPassword= async (req,res)=>{ //funzione da fare
-    console.log("Received request for password recovery")
+    //console.log("Received request for password recovery")
     const {email}=req.body
 
     //controllo che il campo inserito sia valido

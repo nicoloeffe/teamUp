@@ -39,7 +39,7 @@ exports.inserisciCampo = async (req, res) => {
       res.status(400).json({ success: false, message: "Il campo esiste già" });
     }
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -63,7 +63,7 @@ exports.getOrariPrenotazione = async (req, res) => {
 
     res.status(200).json({ success: true, findCampo });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     res.status(400).json({ success: false, message: error.message });
   }
 };
@@ -80,7 +80,7 @@ exports.getCampi = async (req, res) => {
 
     res.status(200).json({ findCampo });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     res.status(400).json({ success: false, message: error.message });
   }
 };

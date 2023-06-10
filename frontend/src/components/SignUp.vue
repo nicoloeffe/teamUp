@@ -32,7 +32,7 @@
               <label class="block font-bold mb-2 text-gray-700" for="password-confirm">
                 Conferma password
               </label>
-              <input class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="password-confirm" type="password" placeholder="Inserisci di nuovo la tua password" />
+              <input v-model="this.user.password2" class="w-full px-4 py-2 rounded-lg shadow-md border border-gray-400 focus:outline-none focus:border-white" id="password-confirm" type="password" placeholder="Inserisci di nuovo la tua password" />
             </div>
             <div class="mt-6">
               <button  class="w-full px-4 py-2 text-lg font-bold bg-green-500 text-white hover:text-green-500 hover:bg-white rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"  @click= "signin()">
@@ -62,9 +62,10 @@ import { defineComponent } from 'vue'
     data(){
       return{
         user:{
-          email:"mariorossi@gmail.com",
-          password:"mariorossi",
-          nomeUtente:"mario"
+          email:"",
+          password:"",
+          password2: "",
+          nomeUtente:""
         },
         error:{
           status: false,
@@ -75,6 +76,12 @@ import { defineComponent } from 'vue'
     methods:{
       async signin(){
         
+        if(this.user.password != this.user.password2){
+          this.error.status = true
+          this.error.message = "Le password inserite non coincidono!"
+          return
+        }
+
         const opzioniRichiesta={
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
