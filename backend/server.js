@@ -12,11 +12,11 @@ const campiRouter = require('./routes/campi');
 
 const app = express();
 
-var corsOptions = {
-    origin: config.FRONT_HOST
-};
+// var corsOptions = {
+//     origin: config.FRONT_HOST
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
