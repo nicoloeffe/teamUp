@@ -55,7 +55,7 @@
           body: JSON.stringify(datiPrenotazione),
         }
         try {
-        console.log("trying to process request");
+        //console.log("trying to process request");
         const res = await fetch(`${config.BASE_URL}/prenotazioni/getprenotazioni`, opzioniRichiesta);
         const data = await res.json();
 

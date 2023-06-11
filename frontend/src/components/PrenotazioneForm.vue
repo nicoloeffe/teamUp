@@ -123,6 +123,9 @@ export default {
   },
 
   watch: {
+    nomeCampo(){
+      this.updateOrari(); 
+    },
     date() {
       this.updateOrari(); 
     },

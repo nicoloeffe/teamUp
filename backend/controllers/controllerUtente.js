@@ -32,7 +32,7 @@ exports.registrazioneUtente= async (req,res)=>{
             newUtente.ruolo='Utente'
         }else newUtente.ruolo='Admin'
         const nuovoUtente= await newUtente.save()
-        res.status(201).json({success:true, message:nuovoUtente})
+        res.status(200).json({success:true, message:nuovoUtente})
     }catch (err){
         res.status(500).json({success:false, message: err})
     }
