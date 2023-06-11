@@ -7,7 +7,7 @@ const invioEmail = require('./email');
 exports.registrazioneUtente= async (req,res)=>{
 
     //recupero i campi dal body della richiesta
-    const {nomeUtente, email, password, gestore}= req.body;
+    const {nomeUtente, email, password, gestore} = req.body;
     //console.log(nomeUtente + " " + email)
 
     //controllo che tutti i campi siano compilati
