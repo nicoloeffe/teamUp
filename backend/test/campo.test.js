@@ -13,7 +13,7 @@ describe('Test campi', ()=>{
             posizione: mockData.state.campo.posizione,
             gestore:{email:"paolo@gmail.com"}
         })
-        expect(res.status).toBe(400);
+        expect(res.status).toBe(404);
         expect(res.body).toEqual({success:false, message:'Impossibile trovare il gestore indicato'})
     })
     test('POST creazione campo ok', async()=>{
@@ -44,7 +44,7 @@ describe('Test campi', ()=>{
             gestore:{email:mockData.state.gestore.email}
 
          })
-         expect(res.status).toBe(400);
+         expect(res.status).toBe(409);
          expect(res.body).toEqual({success:false, message: "Il campo esiste già"})
     })
 

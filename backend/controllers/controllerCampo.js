@@ -7,22 +7,18 @@ exports.inserisciCampo = async (req, res) => {
   const { nome, posizione, descrizione, gestore } = req.body;
 
   try {
-    // Cerca un campo con il nome specificato
     const findCampo = await Campo.findOne({ nome });
 
     if (!findCampo) {
-      // Cerca l'utente gestore con l'email specificata
       const findGest = await Utente.findOne({ email: gestore.email });
 
       if (!findGest) {
-        // Se non viene trovato il gestore indicato, restituisce un messaggio di errore
-        return res.status(400).json({
+        return res.status(404).json({
           success: false,
           message: "Impossibile trovare il gestore indicato",
         });
       }
 
-      // Crea un nuovo campo con i dati forniti
       const newCampo = new Campo({
         nome,
         posizione,
@@ -30,17 +26,14 @@ exports.inserisciCampo = async (req, res) => {
         gestore: findGest,
       });
 
-      // Salva il nuovo campo nel database
       await newCampo.save();
 
       res.status(200).json({ success: true, message: "Campo creato correttamente" });
     } else {
-      // Se il campo già esiste, restituisce un messaggio di errore
-      res.status(400).json({ success: false, message: "Il campo esiste già" });
+      res.status(409).json({ success: false, message: "Il campo esiste già" });
     }
   } catch (error) {
-    //console.log(error);
-    res.status(400).json({ success: false, message: error.message });
+    res.status(400).json({ success: false, message: "Errore durante l'inserimento del campo" });
   }
 };
 
@@ -48,7 +41,6 @@ exports.getOrariPrenotazione = async (req, res) => {
   const { nome, data } = req.body;
 
   try {
-    // Trova il campo con il nome specificato e popola le prenotazioni con gli orari che corrispondono alla data specificata
     const findCampo = await Campo.findOne({ nome })
       .populate({
         path: 'prenotazioni',
@@ -57,30 +49,25 @@ exports.getOrariPrenotazione = async (req, res) => {
       });
 
     if (!findCampo) {
-      // Se il campo non viene trovato, restituisce un messaggio di errore
-      return res.status(404).json({ success: false, message: "Campo non trovato!" });
+      res.status(404).json({ success: false, message: "Campo non trovato!" });
+    } else {
+      res.status(200).json({ success: true, orariPrenotazione: findCampo.prenotazioni });
     }
-
-    res.status(200).json({ success: true, findCampo });
   } catch (error) {
-    //console.log(error);
-    res.status(400).json({ success: false, message: error.message });
+    res.status(400).json({ success: false, message: "Errore durante il recupero degli orari delle prenotazioni" });
   }
 };
 
 exports.getCampi = async (req, res) => {
   try {
-    // Trova tutti i campi nel database
-    const findCampo = await Campo.find();
+    const findCampi = await Campo.find();
 
-    if (findCampo.length === 0) {
-      // Se non vengono trovati campi, restituisce un messaggio di errore
-      return res.status(404).json({ success: false, message: "Nessun campo non trovato!" });
+    if (findCampi.length === 0) {
+      res.status(404).json({ success: false, message: "Nessun campo trovato!" });
+    } else {
+      res.status(200).json({ success: true, campi: findCampi });
     }
-
-    res.status(200).json({ findCampo });
   } catch (error) {
-    //console.log(error);
-    res.status(400).json({ success: false, message: error.message });
+    res.status(400).json({ success: false, message: "Errore durante il recupero dei campi" });
   }
 };
