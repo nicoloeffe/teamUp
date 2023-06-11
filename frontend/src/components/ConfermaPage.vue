@@ -1,6 +1,6 @@
 <template>
     <div class="custom">
-      <div class="flex justify-center items-center min-h-screen">
+      <div class="flex justify-center items-center min-h-screen ch">
         <div class="w-full max-w-lg p-6 bg-green-500 rounded-lg shadow-md">          
         <h2 class="text-4xl font-bold text-white">Prenotazione Confermata!</h2>   
         <div class="mt-6 bg-white rounded-lg p-4 flex justify-center items-center">          
@@ -35,5 +35,8 @@ export default defineComponent({
     background-size: cover;
     background-position:center;
     resize: both;
+  }
+  .ch {
+    min-height: 90vh;
   }
 </style>
