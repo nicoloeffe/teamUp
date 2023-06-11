@@ -20,7 +20,7 @@
             <p>{{ prenotazione.campo }}</p>
           </div>
           <div v-if="bookedPrenotazioni.length === 0" class="flex items-center justify-center mb-2">
-            <P class="text-2xl"> Nessuna prenotazione! </P>
+            <p class="text-2xl"> Nessuna prenotazione! </p>
           </div>          
         </div>
       </div>
@@ -55,12 +55,10 @@
           body: JSON.stringify(datiPrenotazione),
         }
         try {
-        //console.log("trying to process request");
         const res = await fetch(`${config.BASE_URL}/prenotazioni/getprenotazioni`, opzioniRichiesta);
         const data = await res.json();
 
-        if (res.ok) {
-          //console.log(data.findPrenotazione);
+        if (data.success) {
 
           this.bookedPrenotazioni = data.findPrenotazione.map((element) => ({
             campo: element.campo,

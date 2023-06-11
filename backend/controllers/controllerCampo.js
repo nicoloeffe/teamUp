@@ -51,7 +51,7 @@ exports.getOrariPrenotazione = async (req, res) => {
     if (!findCampo) {
       res.status(404).json({ success: false, message: "Campo non trovato!" });
     } else {
-      res.status(200).json({ success: true, orariPrenotazione: findCampo.prenotazioni });
+      res.status(200).json({ success: true, findCampo });
     }
   } catch (error) {
     res.status(400).json({ success: false, message: "Errore durante il recupero degli orari delle prenotazioni" });
@@ -65,7 +65,7 @@ exports.getCampi = async (req, res) => {
     if (findCampi.length === 0) {
       res.status(404).json({ success: false, message: "Nessun campo trovato!" });
     } else {
-      res.status(200).json({ success: true, campi: findCampi });
+      res.status(200).json({ success: true, findCampi });
     }
   } catch (error) {
     res.status(400).json({ success: false, message: "Errore durante il recupero dei campi" });

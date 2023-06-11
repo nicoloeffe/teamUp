@@ -151,8 +151,9 @@ export default {
       try {
         const res = await fetch(`${config.BASE_URL}/campi/getcampi`);
         const data = await res.json();
-        this.campos = data.findCampo; // Imposta i dati dei campi disponibili nella proprietà dati del componente
-        if(!this.campos){
+        this.campos = data.findCampi; // Imposta i dati dei campi disponibili nella proprietà dati del componente
+
+        if(!data.success){
           this.error.status = true
           this.error.message = "Nessun campo disponibile"
         }

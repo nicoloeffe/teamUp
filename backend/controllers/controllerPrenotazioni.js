@@ -44,25 +44,22 @@ exports.creaPrenotazione = async (req, res) => {
 
 exports.fetchPrenotazione = async (req, res) => {
   const { utente } = req.body;
-
   try {
     const findUtente = await Utente.findOne({ email: utente.email }).populate({
       path: "prenotazioni",
       populate: { path: "campo", select: "nome" },
     });
-
     if (!findUtente) {
       res.status(404).json({ success: false, message: "Utente non riconosciuto" });
-      return;
+    } else {
+      const findPrenotazione = findUtente.prenotazioni.map((prenotazione) => ({
+        campo: prenotazione.campo.nome,
+        data: prenotazione.data,
+        orario: prenotazione.orario,
+      }));
+
+      res.status(200).json({ success: true, findPrenotazione });
     }
-
-    const findPrenotazione = findUtente.prenotazioni.map((prenotazione) => ({
-      campo: prenotazione.campo.nome,
-      data: prenotazione.data,
-      orario: prenotazione.orario,
-    }));
-
-    res.status(200).json({ success: true, prenotazioni: findPrenotazione });
   } catch (error) {
     res.status(500).json({ success: false, message: "Errore durante il recupero delle prenotazioni" });
   }
