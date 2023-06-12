@@ -1,7 +1,7 @@
 const mongoose=require ('mongoose');
-const bcrypt= require ('bcryptjs');
 
-const schemaCampo= new mongoose.Schema({
+
+const schemaCampo = new mongoose.Schema({
     nome:{
         type: String,
         required: true
@@ -11,11 +11,12 @@ const schemaCampo= new mongoose.Schema({
         required: true
     },
     descrizione:{
-        type: String
+        type: String,
+        ref: 'descrizione'
     },
     prenotazioni:{
         type: [mongoose.Types.ObjectId],
-        ref: 'prenotazioni'
+        ref: 'prenotazione'
     },
     gestore:{
         type: mongoose.Types.ObjectId,
@@ -23,6 +24,7 @@ const schemaCampo= new mongoose.Schema({
     },
     report :{
         type: [mongoose.Types.ObjectId],
-        ref: ''
+        ref: 'report'
     }
 })
+module.exports=mongoose.model('campo',schemaCampo);

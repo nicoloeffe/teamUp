@@ -6,6 +6,9 @@ import AdminAccountView from '../views/AdminAccountView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import PrenotazioneView from '../views/PrenotazioneView.vue'
 import NotFoundView from '../views/NotFoundView'
+import ConfermaView from '../views/ConfermaView'
+import DashBoardView from '../views/DashBoardView'
+import preView from '../views/preView'
 
 const routes = [
   {
@@ -14,9 +17,19 @@ const routes = [
     component: HomeView
   },
   {
+    path: '/dashboard',
+    name: 'DashBoard',
+    component: DashBoardView
+  },
+  {
     path: '/prenotazione',
     name: 'Prenotazione',
     component: PrenotazioneView,     
+  },
+  {
+    path: '/conferma',
+    name: 'Conferma',
+    component: ConfermaView,     
   },
   {
     path: '/signup',
@@ -38,7 +51,11 @@ const routes = [
     name: 'Profile',
     component: ProfileView
   },
-
+  {
+    path: '/preffettuate',
+    name: 'PrEff',
+    component: preView
+  },
   // TO BE LAST
   { 
     path: "/:catchAll(.*)",

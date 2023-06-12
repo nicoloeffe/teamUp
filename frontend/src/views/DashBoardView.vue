@@ -1,20 +1,22 @@
 <template>
     <div >
-      <NavBar />
-      <PrenotazioneForm />
+        <NavBar/>
+        <DashBoard/>
     </div>
   </template>
   
   <script>
-  import PrenotazioneForm from '@/components/PrenotazioneForm.vue';  
-  import NavBar from '@/components/NavBar.vue';
+  // @ is an alias to /src
+  import NavBar from '@/components/NavBar.vue'
+  import DashBoard from '@/components/DashBoard.vue';  
   import store from '@/store/index';
   import router from '@/router';
   
   export default {
+    name: 'DashBoardView',
     components: {
-      PrenotazioneForm,      
-      NavBar
+      NavBar, 
+      DashBoard,
     },
     mounted(){
       if(!store.state.token){        
@@ -22,6 +24,5 @@
       //console.log("utente non autenticato")
       }
     },
-  };
+  }
   </script>
-  
